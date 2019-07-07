@@ -1,0 +1,48 @@
+div {
+    text-align: center;
+}
+
+button {
+    margin: 5px;
+}
+
+body {
+    background-color: #a6523f;
+}
+
+h1 {
+    font-family: 'Pacifico', cursive;
+    font-size: 80px;
+}
+
+h2 {
+    font-family: 'Pacifico', cursive;
+}
+
+#quiz-questions {
+    font-family: 'Open Sans', sans-serif;
+    background-color: #f2bfac;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    color: #733e32;
+    font-weight: bold;
+    font-size: 20px;
+
+}
+
+#title {
+    padding-top: 30px;
+}
+
+#quiz-buttons {
+    margin-top: 30px;
+}
+
+.btn {
+    font-family: 'Open Sans', sans-serif;
+    background-color: #232426;
+    color: #f2bfac;
+}
+.btn:hover {
+    color: #a6523f;
+}

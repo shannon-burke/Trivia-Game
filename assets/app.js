@@ -1,4 +1,4 @@
-var currentQuestion = 0;
+var questionsAnswered = 0;
 var correctAnswers = 0;
 var incorrectAnswers = 0;
 
@@ -29,45 +29,65 @@ var questionsArray = [{
 
 function createAnswerButtons() {
 
-    for (var i = 0; i < questionsArray[currentQuestion].choices.length; i++) {
-        var button = $("<button>");
-        button.text(questionsArray[currentQuestion].choices[i]);
-        button.addClass("answer-button");
-        button.attr("value", questionsArray[currentQuestion].values[i]);
-        button.attr("answerName", questionsArray[currentQuestion].choices[i]);
-        $("#quiz-buttons").append(button);
+    for (var i = 0; i < questionsArray[questionsAnswered].choices.length; i++) {
+        var answerButton = $("<button>");
+        answerButton.text(questionsArray[questionsAnswered].choices[i]);
+        answerButton.addClass("answer-button btn");
+        answerButton.attr("value", questionsArray[questionsAnswered].values[i]);
+        answerButton.attr("answerName", questionsArray[questionsAnswered].choices[i]);
+        $("#quiz-buttons").append(answerButton);
     }
 
 };
 
 function endConditions() {
-    $("#quiz-result").text("correct:" + correctAnswers);
+
+    var resetButton = $("<button>");
+    resetButton.text("Try Again");
+    resetButton.addClass("btn reset-button");
+
+    $("#quiz-questions").empty();
+    $("#quiz-buttons").empty();
+    $("#quiz-questions").append('<h2>Correct</h2>', correctAnswers, '<h2>Incorrect</h2>', incorrectAnswers, '<br><br><img src="assets/cat-win.jpg" width=300><br><br>', resetButton);
+
+    $(".reset-button").on("click", function () {
+        questionsAnswered = 0;
+        correctAnswers = 0;
+        incorrectAnswers = 0;
+        $("#quiz-questions").empty();
+        gameLogic();
+        console.log("test");
+    });
 };
+
+
 
 function gameLogic() {
 
-
-
-    $("#quiz-questions").append(questionsArray[currentQuestion].question);
+    $("#quiz-questions").append(questionsArray[questionsAnswered].question);
     createAnswerButtons();
     // a test to see if the game logic function was executing correctly console.log("execution test");
 
     console.log("click test");
     console.log("correct: " + correctAnswers);
     console.log("incorrect: " + incorrectAnswers)
-    console.log("current question:" + currentQuestion);
+    console.log("questions answered:" + questionsAnswered);
 
     $(".answer-button").on("click", function () {
 
-        if (currentQuestion > questionsArray.length - 2) {
-            $("#quiz-questions").empty();
-            $("#quiz-buttons").empty();
+        if (questionsAnswered >= questionsArray.length - 1 && $(this).attr("value") === "true") {
+            correctAnswers++;
+            endConditions();
+        }
+
+        else if (questionsAnswered >= questionsArray.length - 1) {
+            incorrectAnswers++;
             endConditions();
         }
 
         else if ($(this).attr("value") === "true") {
             correctAnswers++;
-            currentQuestion++;
+            questionsAnswered++;
             $("#quiz-questions").empty();
             $("#quiz-buttons").empty();
             gameLogic();
@@ -75,15 +95,12 @@ function gameLogic() {
 
         else {
             incorrectAnswers++;
-            currentQuestion++;
+            questionsAnswered++;
             $("#quiz-questions").empty();
             $("#quiz-buttons").empty();
             gameLogic();
         }
-
-
     })
-
 };
 
 
