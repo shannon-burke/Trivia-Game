@@ -1,4 +1,4 @@
-var currentQuestion = 1;
+var currentQuestion = 0;
 var correctAnswers = 0;
 var incorrectAnswers = 0;
 
@@ -41,7 +41,7 @@ function createAnswerButtons() {
 };
 
 function endConditions() {
-    $("#quiz-result").text("test");
+    $("#quiz-result").text("correct:" + correctAnswers);
 };
 
 function gameLogic() {
@@ -75,7 +75,7 @@ function gameLogic() {
 
         else {
             incorrectAnswers++;
-            currentQuestion++
+            currentQuestion++;
             $("#quiz-questions").empty();
             $("#quiz-buttons").empty();
             gameLogic();
